@@ -188,6 +188,42 @@
           </label>
         </div>
       </div>
+      <div class="col-lg-2 v-menu">
+        <h3>Type music</h3>
+        <hr>
+
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="album" id="music-" class="mc-cat" name="cat">
+            Album
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="cd" id="music-" class="mc-cat" name="cat">
+            CD
+          </label>
+
+
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="dvd" id="music-" class="mc-cat" name="cat">
+            DVD
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label id="ticket">
+            <input type="checkbox" value="tk" id="music-" class="mc-cat" name="cat">
+            Ticket
+          </label>
+        </div>
+      </div>
+
 
       <div class="col-md-10">
         <div class="row" id="products">
@@ -291,8 +327,11 @@
                     because in the end, the turmoil in life did not distract him from music.</p>
                 </div>
 
-
-                <button type=" button" data-id="" class="btn btn-primary modalCart" onclick="buy()">Buy</button>
+                <span class="download">
+                  <a href=""><button type=" button" data-id="" class="btn btn-primary modalCart"
+                      onclick="download()">download</button>
+                  </a>
+                </span>
               </div>
             </div>
           </div>
@@ -331,16 +370,16 @@
 
     });
   }
-  checkAuth()
+  // checkAuth()
   $(document).ready(function () {
     var data = [];
     let ticket = localStorage.getItem('ticket')
     loadpage()
-    if (ticket == 'x'){
+    if (ticket == 'x') {
       searchticket()
       localStorage.removeItem('ticket')
     }
-      
+
     function loadpage() {
       $.getJSON("js/music.json", function (items) {
         // console.log(items);
@@ -411,35 +450,32 @@
         <h6 class="brand-name-3">${product.type.toUpperCase()}</h6>
         <div role="tabpanel" class="tab-pane active" id="description">
           <p>${product.description}</p>
-          <p id="price" class="${product.price}">$${product.price}</p>
-        <input type="number" name="num" id="num" value="1" min="1" max="100">
-        <button type=" button" data-id="" class="btn btn-primary modalCart" onclick="buy()">Buy</button>
+        
+       
+          <span class="download">
+                <a href="" ><button type=" button" data-id=""  class="btn btn-primary modalCart" onclick="download()">download</button>
+                </a>
+              </span>
       </div>
            
                                    `;
 
     $('.modal-body').html(x)
   }
-  function buy() {
-    var list = []
-    let pic = localStorage.getItem('pic') || ''
-    let qty = localStorage.getItem('qty') || ''
-    let price = localStorage.getItem('price') || ''
-    let id = document.getElementById("productInfo").getAttribute("data-id")
+  function download() {
     let auth = localStorage.getItem('auth')
+    let y = ``
     if (auth) {
-      let num = document.getElementById('num').value
-      let img = document.getElementById('zoom_03').getAttribute("src")
-      let priceOnUnit = document.getElementById('price').getAttribute("class")
+      y = `
+                <a href="" download ><button type=" button" data-id=""  class="btn btn-primary modalCart" onclick="download()">download</button>
+                </a>
+              `
 
-      localStorage.setItem('price', priceOnUnit)
-      localStorage.setItem('qty', num)
-      localStorage.setItem('pic', img)
-      window.location.href = 'checkout.html';
       // alert(productid);
     } else {
       window.location.href = 'login.html';
     }
+    $('.download').html(y);
   }
   // window.onload = searchticket();
   checkticket()
